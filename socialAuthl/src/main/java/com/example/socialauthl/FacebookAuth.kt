@@ -1,13 +1,13 @@
-package com.example.socialloginapp.auth
+package com.example.socialauthl
 
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import com.example.socialloginapp.auth.model.PermissionsParser.fromFacePermissions
-import com.example.socialloginapp.auth.model.PermissionsParser.toFacePermissions
-import com.example.socialloginapp.auth.model.SocialUser
-import com.example.socialloginapp.auth.model.Utility.getBlockedPermissions
-import com.example.socialloginapp.auth.model.Utility.getFaceParamsFromPermissions
+import com.example.socialauthl.model.PermissionsParser.fromFacePermissions
+import com.example.socialauthl.model.PermissionsParser.toFacePermissions
+import com.example.socialauthl.model.SocialUser
+import com.example.socialauthl.model.Utility.getBlockedPermissions
+import com.example.socialauthl.model.Utility.getFaceParamsFromPermissions
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -20,12 +20,13 @@ class FacebookAuth(private val callBack: AuthCallBack,
     private lateinit var loginManager:LoginManager
     override fun login(
     ) {
+        registerWithFaceBook()
+    }
+
+    private fun registerWithFaceBook(){
         val loginManager = LoginManager.getInstance()
         loginManager.logOut()
         loginManager.logInWithReadPermissions(activity, toFacePermissions(permissions))
-        registerWithFaceBook()
-    }
-    fun registerWithFaceBook(){
         loginManager.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult) {
@@ -48,17 +49,14 @@ class FacebookAuth(private val callBack: AuthCallBack,
                 }
             })
     }
-
-    override fun logout() {
-        TODO("Not yet implemented")
-    }
-
     private fun requestDataFromGraphAPI(loginResult: LoginResult){
         val request = GraphRequest.newMeRequest(
             loginResult.accessToken
-        ) { json, _ ->
+        ) { json, result ->
             try {
                 if(json!=null) {
+                    Log.e("GraphAPI json", json.toString())
+                    Log.e("GraphAPI result", result.toString())
                     AccessToken.getCurrentAccessToken()?.let {
                         val granted = fromFacePermissions(it.permissions);
                         callBack.onSuccess(
@@ -79,4 +77,10 @@ class FacebookAuth(private val callBack: AuthCallBack,
         request.parameters = parameters
         request.executeAsync()
     }
+
+    override fun logout() {
+        val loginManager = LoginManager.getInstance()
+        loginManager.logOut()
+    }
+
 }

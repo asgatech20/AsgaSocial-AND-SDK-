@@ -1,4 +1,4 @@
-package com.example.socialloginapp.auth
+package com.example.socialauthl
 
 enum class AuthPermissions(val value:String) {
     EMAIL("email"),

@@ -1,4 +1,4 @@
-package com.example.socialloginapp.auth
+package com.example.socialauthl
 
 import android.app.Activity
 import com.facebook.*

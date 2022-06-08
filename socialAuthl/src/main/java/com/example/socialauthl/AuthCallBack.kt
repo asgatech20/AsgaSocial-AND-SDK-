@@ -1,6 +1,6 @@
-package com.example.socialloginapp.auth
+package com.example.socialauthl
 
-import com.example.socialloginapp.auth.model.SocialUser
+import com.example.socialauthl.model.SocialUser
 
 interface AuthCallBack {
     fun onSuccess(socialUser: SocialUser, grantedPermission:List<AuthPermissions>, blockedPermission:List<AuthPermissions>)

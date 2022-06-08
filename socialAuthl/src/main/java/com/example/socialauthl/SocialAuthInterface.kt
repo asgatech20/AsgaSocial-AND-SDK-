@@ -1,4 +1,4 @@
-package com.example.socialloginapp.auth
+package com.example.socialauthl
 
 interface SocialAuthInterface {
     fun login()

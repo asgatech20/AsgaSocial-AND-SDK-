@@ -8,10 +8,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.socialloginapp.auth.AuthCallBack
-import com.example.socialloginapp.auth.AuthPermissions
-import com.example.socialloginapp.auth.SocialAuthHelper
-import com.example.socialloginapp.auth.model.SocialUser
+import com.example.socialauthl.AuthCallBack
+import com.example.socialauthl.AuthPermissions
+import com.example.socialauthl.SocialAuthHelper
+import com.example.socialauthl.model.SocialUser
 import com.example.socialloginapp.databinding.ActivityMainBinding
 import com.facebook.CallbackManager
 import com.google.android.material.snackbar.Snackbar

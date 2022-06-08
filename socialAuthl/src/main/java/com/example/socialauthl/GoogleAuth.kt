@@ -1,4 +1,4 @@
-package com.example.socialloginapp.auth
+package com.example.socialauthl
 
 class GoogleAuth():SocialAuthInterface {
     override fun login() {

@@ -1,6 +1,6 @@
-package com.example.socialloginapp.auth.model
+package com.example.socialauthl.model
 
-import com.example.socialloginapp.auth.AuthPermissions
+import com.example.socialauthl.AuthPermissions
 
 
 object Utility {
@@ -14,7 +14,7 @@ object Utility {
     }
 
     fun getFaceParamsFromPermissions(permissions:List<AuthPermissions>):String{
-        var params = arrayListOf<String>();
+        val params = arrayListOf<String>();
         permissions.forEach { per->
             when(per){
                 AuthPermissions.PUBLIC_PROFILE ->
@@ -24,7 +24,7 @@ object Utility {
                     params.add("email")
 
                 AuthPermissions.USER_BIRTH_DAY ->
-                    params.add("user_birthday")
+                    params.addAll(listOf("gender","birthday"))
 
             }
         }

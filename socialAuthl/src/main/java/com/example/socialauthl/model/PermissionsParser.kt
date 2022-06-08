@@ -1,7 +1,6 @@
-package com.example.socialloginapp.auth.model
+package com.example.socialauthl.model
 
-import com.example.socialloginapp.auth.AuthPermissions
-
+import com.example.socialauthl.AuthPermissions
 
 object PermissionsParser {
 
