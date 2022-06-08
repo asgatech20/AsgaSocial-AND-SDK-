@@ -3,7 +3,8 @@ package com.example.socialauthl
 enum class AuthPermissions(val value:String) {
     EMAIL("email"),
     PUBLIC_PROFILE("public_profile"),
-    USER_BIRTH_DAY("user_birthday ");
+    BIRTH_DAY("user_birthday "),
+    GENDER("user_gender ");
 
     companion object {
         private val map = values().associateBy(AuthPermissions::value)

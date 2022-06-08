@@ -20,12 +20,11 @@ class FacebookAuth(private val callBack: AuthCallBack,
     private lateinit var loginManager:LoginManager
     override fun login(
     ) {
+        loginManager = LoginManager.getInstance()
         registerWithFaceBook()
     }
 
     private fun registerWithFaceBook(){
-        val loginManager = LoginManager.getInstance()
-        loginManager.logOut()
         loginManager.logInWithReadPermissions(activity, toFacePermissions(permissions))
         loginManager.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {

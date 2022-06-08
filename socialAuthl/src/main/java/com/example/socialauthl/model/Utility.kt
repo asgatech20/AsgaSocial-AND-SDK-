@@ -23,8 +23,11 @@ object Utility {
                 AuthPermissions.EMAIL ->
                     params.add("email")
 
-                AuthPermissions.USER_BIRTH_DAY ->
-                    params.addAll(listOf("gender","birthday"))
+                AuthPermissions.BIRTH_DAY ->
+                    params.add("birthday")
+
+                AuthPermissions.GENDER ->
+                    params.add("gender")
 
             }
         }

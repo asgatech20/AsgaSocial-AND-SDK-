@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private val facePermissions = listOf(
         AuthPermissions.EMAIL,
         AuthPermissions.PUBLIC_PROFILE,
-        AuthPermissions.USER_BIRTH_DAY
+        AuthPermissions.BIRTH_DAY
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
