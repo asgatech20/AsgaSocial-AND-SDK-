@@ -1,15 +1,16 @@
 package com.example.socialauthl.model
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import org.json.JSONObject
 
 data class SocialUser(
-    var id: String?,
-    var name: String?,
-    var email: String?,
-    var fName: String?,
-    var lName: String?,
-    var birthday: String?,
-    var imageUrl: String?,
+    var id: String = "",
+    var name: String = "",
+    var email: String = "",
+    var fName: String = "",
+    var lName: String = "",
+    var birthday: String = "",
+    var imageUrl: String = "",
 ) {
     companion object {
         fun fromJson(json: JSONObject): SocialUser {
@@ -21,6 +22,18 @@ data class SocialUser(
                 lName = if(json.has("last_name"))json.getString("last_name") else "",
                 birthday = if(json.has("birthday"))json.getString("birthday") else "",
                 imageUrl = json.getJSONObject("picture").getJSONObject("data").getString("url")
+            )
+        }
+
+        fun fromGoogleUser(account:GoogleSignInAccount):SocialUser{
+            return SocialUser(
+                id = if(account.id!=null)account.id!! else "",
+                name =  if(account.displayName!=null)account.displayName!! else "",
+                email =  if(account.email!=null)account.email!! else "",
+                fName =  if(account.givenName!=null)account.givenName!! else "",
+                lName =  if(account.familyName!=null)account.familyName!! else "",
+                birthday = "",
+                imageUrl = if(account.photoUrl!=null)account.photoUrl?.toString()!! else ""
             )
         }
     }

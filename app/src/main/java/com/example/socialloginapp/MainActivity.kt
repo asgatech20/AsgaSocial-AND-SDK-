@@ -1,27 +1,23 @@
 package com.example.socialloginapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
+import com.bumptech.glide.Glide
 import com.example.socialauthl.AuthCallBack
 import com.example.socialauthl.AuthPermissions
-import com.example.socialauthl.SocialAuthHelper
+import com.example.socialauthl.SocialAuthActivity
 import com.example.socialauthl.model.SocialUser
 import com.example.socialloginapp.databinding.ActivityMainBinding
-import com.facebook.CallbackManager
 import com.google.android.material.snackbar.Snackbar
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : SocialAuthActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    var callbackManager = CallbackManager.Factory.create()
     private val facePermissions = listOf(
         AuthPermissions.EMAIL,
         AuthPermissions.PUBLIC_PROFILE,
@@ -33,25 +29,48 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        val navController = findNavController(R.id.nav_host_fragment_content_main)
+//        appBarConfiguration = AppBarConfiguration(navController.graph)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-            SocialAuthHelper.instance.startLoginWithFaceBook(this, callbackManager, object :
+        binding.loginFace.setOnClickListener { view ->
+            loginFace()
+        }
+
+        binding.logoutFace.setOnClickListener { view ->
+            logoutFacebook()
+        }
+        binding.loginGoogle.setOnClickListener { view ->
+            loginGoogle()
+        }
+        binding.logoutGoogle.setOnClickListener { view ->
+            logoutGoogle()
+        }
+
+    }
+
+    private fun loginFace() {
+        startLoginWithFaceBook(
+            object :
                 AuthCallBack {
                 override fun onSuccess(
                     socialUser: SocialUser,
-                    granted:List<AuthPermissions>,
-                    block:List<AuthPermissions>
+                    granted: List<AuthPermissions>,
+                    block: List<AuthPermissions>
                 ) {
 
                     Log.e("facebook onSuccess", socialUser.toString())
                     Log.e("facebook onSuccess", granted.toString())
+                    binding.loginType.text = "Google"
+                    updateUi(user = socialUser)
                 }
 
                 override fun onCancel() {
-                    Snackbar.make(binding.fab, "Replace ReplaceReplaceReplace", Snackbar.LENGTH_LONG)
+                    Snackbar.make(
+                        binding.fab,
+                        "Replace ReplaceReplaceReplace",
+                        Snackbar.LENGTH_LONG
+                    )
                         .setAction("Action", null).show()
                 }
 
@@ -59,14 +78,57 @@ class MainActivity : AppCompatActivity() {
 
                 }
             },
-            permissions = facePermissions)
-        }
-
+            permissions = facePermissions
+        )
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        callbackManager.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun loginGoogle() {
+        startLoginWithGoogle(
+            object :
+                AuthCallBack {
+                override fun onSuccess(
+                    socialUser: SocialUser,
+                    granted: List<AuthPermissions>,
+                    block: List<AuthPermissions>
+                ) {
+
+                    Log.e("facebook onSuccess", socialUser.toString())
+                    Log.e("facebook onSuccess", granted.toString())
+                    binding.loginType.text = "Google"
+                    updateUi(user = socialUser)
+                }
+
+                override fun onCancel() {
+                    Snackbar.make(
+                        binding.fab,
+                        "Replace ReplaceReplaceReplace",
+                        Snackbar.LENGTH_LONG
+                    )
+                        .setAction("Action", null).show()
+                }
+
+                override fun onError(throwable: Throwable) {
+                    Snackbar.make(
+                        binding.fab,
+                        throwable.message.toString(),
+                        Snackbar.LENGTH_LONG
+                    )
+                        .setAction("Action", null).show()
+
+                }
+            },
+        )
+    }
+
+    fun updateUi(user:SocialUser){
+        binding.userName.text = user.name
+        binding.userObject.text = user.toString()
+
+        Glide
+            .with(this)
+            .load(user.imageUrl)
+            .circleCrop()
+            .into(binding.userImage);
     }
 
     override fun onSupportNavigateUp(): Boolean {
