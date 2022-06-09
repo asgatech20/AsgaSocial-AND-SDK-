@@ -26,9 +26,11 @@ class GoogleAuth(
     private lateinit var gsc: GoogleSignInClient
 
     override fun login() {
+
         gso =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
         gsc = GoogleSignIn.getClient(activity, gso)
+        logout()
         val signInIntent = gsc.signInIntent
         activity.startActivityForResult(signInIntent, SocialAuthActivity.RC_GOOGLE_SIGN_IN)
     }

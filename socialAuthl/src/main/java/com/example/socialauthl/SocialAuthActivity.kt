@@ -23,6 +23,7 @@ open class SocialAuthActivity : AppCompatActivity() {
         permissions: List<AuthPermissions>
     ) {
         facebookAuth = FacebookAuth(callBack, this@SocialAuthActivity, callbackManager, permissions)
+        logoutFacebook()
         facebookAuth?.login()
     }
 

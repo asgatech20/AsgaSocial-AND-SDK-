@@ -18,15 +18,17 @@ class FacebookAuth(private val callBack: AuthCallBack,
                    private val callbackManager: CallbackManager,
                    private val permissions: List<AuthPermissions>):SocialAuthInterface {
 
-    private var loginManager:LoginManager  = LoginManager.getInstance()
+    private lateinit var loginManager:LoginManager
 
     override fun login(
     ) {
+        loginManager  = LoginManager.getInstance()
+        loginManager.logInWithReadPermissions(activity, toFacePermissions(permissions))
+
         registerWithFaceBook()
     }
 
     private fun registerWithFaceBook(){
-        loginManager.logInWithReadPermissions(activity, toFacePermissions(permissions))
         loginManager.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult) {
