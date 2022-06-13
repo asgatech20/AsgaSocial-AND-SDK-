@@ -25,7 +25,7 @@ Add the following dependencies to the `build.gradle` of the module you want to u
 
 ```groovy
 dependencies {
-    implementation 'com.github.User:Repo:Tag'
+   implementation 'com.github.asgatech20:AsgaSocial-AND-SDK-:1.0.1'
 }
 ```
 ### Google
