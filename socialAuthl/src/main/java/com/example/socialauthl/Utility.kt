@@ -1,6 +1,4 @@
-package com.example.socialauthl.model
-
-import com.example.socialauthl.AuthPermissions
+package com.example.socialauthl
 
 
 object Utility {

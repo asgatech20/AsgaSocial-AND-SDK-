@@ -6,8 +6,8 @@ import android.util.Log
 import com.example.socialauthl.model.PermissionsParser.fromFacePermissions
 import com.example.socialauthl.model.PermissionsParser.toFacePermissions
 import com.example.socialauthl.model.SocialUser
-import com.example.socialauthl.model.Utility.getBlockedPermissions
-import com.example.socialauthl.model.Utility.getFaceParamsFromPermissions
+import com.example.socialauthl.Utility.getBlockedPermissions
+import com.example.socialauthl.Utility.getFaceParamsFromPermissions
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
